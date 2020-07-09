@@ -1,4 +1,4 @@
-package com.payroll.schedule;
+package com.payroll.domain;
 
 public interface PaymentSchedule {
 

@@ -1,11 +1,8 @@
 package com.payroll.transaction.impl;
 
-import com.payroll.classification.HourlyClassification;
-import com.payroll.classification.PaymentClassification;
-import com.payroll.method.HoldMethod;
-import com.payroll.method.PaymentMethod;
-import com.payroll.schedule.PaymentSchedule;
-import com.payroll.schedule.WeeklySchedule;
+import com.payroll.domain.PaymentClassification;
+import com.payroll.domain.PaymentMethod;
+import com.payroll.domain.PaymentSchedule;
 import com.payroll.transaction.AddEmployeeTransaction;
 
 public class AddHourlyEmployee extends AddEmployeeTransaction {
@@ -18,17 +15,17 @@ public class AddHourlyEmployee extends AddEmployeeTransaction {
 
 	@Override
 	protected PaymentClassification getClassification() {		
-		return new HourlyClassification(this.hourlyRate);
+		return this.payrollFactory.makeHourlyClassification(this.hourlyRate);
 	}
 
 	@Override
 	protected PaymentSchedule getSchedule() {
-		return new WeeklySchedule();
+		return this.payrollFactory.makeWeeklySchedule();
 	}
 
 	@Override
 	protected PaymentMethod getMethod() {
-		return new HoldMethod();
+		return this.payrollFactory.makeHoldMethod();
 	}
 
 }

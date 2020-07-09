@@ -1,4 +1,4 @@
-package com.payroll.method;
+package com.payroll.domain;
 
 public interface PaymentMethod {
 

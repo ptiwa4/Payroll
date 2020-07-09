@@ -1,11 +1,11 @@
 package com.payroll.transaction.impl;
 
-import com.payroll.classification.PaymentClassification;
-import com.payroll.classification.SalariedClassification;
-import com.payroll.method.HoldMethod;
-import com.payroll.method.PaymentMethod;
-import com.payroll.schedule.MonthlySchedule;
-import com.payroll.schedule.PaymentSchedule;
+import com.payroll.domain.PaymentClassification;
+import com.payroll.domain.PaymentMethod;
+import com.payroll.domain.PaymentSchedule;
+import com.payroll.factory.impl.HoldMethod;
+import com.payroll.factory.impl.MonthlySchedule;
+import com.payroll.factory.impl.SalariedClassification;
 import com.payroll.transaction.AddEmployeeTransaction;
 
 
@@ -19,16 +19,16 @@ public class AddSalariedEmployee extends AddEmployeeTransaction {
 
 	@Override
 	protected PaymentClassification getClassification() {
-		return new SalariedClassification(this.salary);
+		return this.payrollFactory.makeSalariedClassification(this.salary);
 	}
 
 	@Override
 	protected PaymentSchedule getSchedule() {
-		return new MonthlySchedule();
+		return this.payrollFactory.makeMonthlySchedule();
 	}
 
 	@Override
 	protected PaymentMethod getMethod() {
-		return new HoldMethod();
+		return this.payrollFactory.makeHoldMethod();
 	}	
 }

@@ -1,8 +1,4 @@
-package com.payroll.model;
-
-import com.payroll.classification.PaymentClassification;
-import com.payroll.method.PaymentMethod;
-import com.payroll.schedule.PaymentSchedule;
+package com.payroll.domain;
 
 public class Employee {
 	private int id;

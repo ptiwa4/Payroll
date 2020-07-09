@@ -3,7 +3,7 @@ package com.payroll.database;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.payroll.model.Employee;
+import com.payroll.domain.Employee;
 
 public class PayrollDatabase {
 

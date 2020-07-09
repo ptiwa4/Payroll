@@ -1,4 +1,4 @@
-package com.payroll.model;
+package com.payroll.domain;
 
 public class TimeCard {
 

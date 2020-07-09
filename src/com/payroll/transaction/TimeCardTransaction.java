@@ -1,10 +1,11 @@
 package com.payroll.transaction;
 
-import com.payroll.classification.HourlyClassification;
-import com.payroll.classification.PaymentClassification;
 import com.payroll.database.PayrollDatabase;
-import com.payroll.model.Employee;
-import com.payroll.model.TimeCard;
+import com.payroll.domain.Employee;
+import com.payroll.domain.PaymentClassification;
+import com.payroll.domain.TimeCard;
+import com.payroll.factory.impl.HourlyClassification;
+import com.payroll.transaction.application.Transaction;
 
 public class TimeCardTransaction implements Transaction {
 	String date;

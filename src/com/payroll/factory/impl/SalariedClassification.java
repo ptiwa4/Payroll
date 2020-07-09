@@ -1,4 +1,6 @@
-package com.payroll.classification;
+package com.payroll.factory.impl;
+
+import com.payroll.domain.PaymentClassification;
 
 public class SalariedClassification implements PaymentClassification {
 	private double salary;

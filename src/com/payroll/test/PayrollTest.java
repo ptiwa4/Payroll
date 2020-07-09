@@ -6,30 +6,32 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.payroll.classification.HourlyClassification;
-import com.payroll.classification.PaymentClassification;
-import com.payroll.classification.SalariedClassification;
 import com.payroll.database.PayrollDatabase;
-import com.payroll.method.HoldMethod;
-import com.payroll.method.PaymentMethod;
-import com.payroll.model.Employee;
-import com.payroll.model.TimeCard;
-import com.payroll.schedule.MonthlySchedule;
-import com.payroll.schedule.PaymentSchedule;
-import com.payroll.schedule.WeeklySchedule;
-import com.payroll.transaction.DeleteEmployeeTransaction;
-import com.payroll.transaction.TimeCardTransaction;
-import com.payroll.transaction.Transaction;
-import com.payroll.transaction.impl.AddHourlyEmployee;
-import com.payroll.transaction.impl.AddSalariedEmployee;
+import com.payroll.domain.Employee;
+import com.payroll.domain.PaymentClassification;
+import com.payroll.domain.PaymentMethod;
+import com.payroll.domain.PaymentSchedule;
+import com.payroll.domain.TimeCard;
+import com.payroll.factory.impl.HoldMethod;
+import com.payroll.factory.impl.HourlyClassification;
+import com.payroll.factory.impl.MonthlySchedule;
+import com.payroll.factory.impl.SalariedClassification;
+import com.payroll.factory.impl.WeeklySchedule;
+import com.payroll.transaction.factory.TransactionFactory;
+import com.payroll.transaction.impl.TransactionFactoryImpl;
 
 public class PayrollTest {
+	TransactionFactory factory;
+
+	public PayrollTest() {
+		factory = new TransactionFactoryImpl();
+	}
 
 	@Test
 	public void testAddSalariedEmployee() {
 		int empId = 1;
-		Transaction transaction = new AddSalariedEmployee(empId, "Prashant", "home", 1000.00);
-		transaction.execute();
+
+		factory.makeAddSalaryTransaction(empId, "Prashant", "home", 1000.00).execute();
 
 		Employee emp = PayrollDatabase.getEmployee(empId);
 		assertEquals("Prashant", emp.getName());
@@ -52,8 +54,8 @@ public class PayrollTest {
 	@Test
 	public void testAddHourlyEmployee() {
 		int empId = 1;
-		Transaction transaction = new AddHourlyEmployee(empId, "Prashant", "home", 40.00);
-		transaction.execute();
+
+		factory.makeAddHourlyTransaction(empId, "Prashant", "home", 40.00).execute();
 
 		Employee emp = PayrollDatabase.getEmployee(empId);
 		assertEquals("Prashant", emp.getName());
@@ -77,14 +79,12 @@ public class PayrollTest {
 	public void testDeleteEmployee() {
 		int empId = 2;
 
-		Transaction transaction = new AddHourlyEmployee(empId, "Ron", "home", 40.00);
-		transaction.execute();
+		factory.makeAddHourlyTransaction(empId, "Ron", "home", 40.00).execute();
 
 		Employee emp = PayrollDatabase.getEmployee(empId);
 		assertEquals(2, emp.getId());
 
-		transaction = new DeleteEmployeeTransaction(empId);
-		transaction.execute();
+		factory.makeDeleteEmployeeTransaction(empId).execute();
 
 		emp = PayrollDatabase.getEmployee(empId);
 		assertNull(emp);
@@ -95,45 +95,61 @@ public class PayrollTest {
 	public void testTimeCardTransaction() {
 		int empId = 3;
 
-		Transaction transaction = new AddHourlyEmployee(empId, "Ron", "home", 40.00);
-		transaction.execute();		
-		
-		transaction = new TimeCardTransaction("772020", 8, empId);
-		transaction.execute();
-		
+		factory.makeAddHourlyTransaction(empId, "Ron", "home", 40.00).execute();
+
+		factory.makeTimeCardTransaction("772020", 8, empId).execute();
+
 		Employee emp = PayrollDatabase.getEmployee(empId);
 		assertEquals(3, emp.getId());
-		
+
 		PaymentClassification pc = emp.getClassification();
 		HourlyClassification hc = (HourlyClassification) pc;
 		assertNotNull(hc);
-		
+
 		TimeCard tc = hc.getTimeCard();
 		assertNotNull(tc);
 		assertEquals(8, tc.getHours());
 	}
-	
+
+	// TODO
+	@Test
+	public void testAddSalesReceiptTransaction() {
+
+	}
+
+	// TODO
 	@Test
 	public void testAddServiceCharge() {
-		int empId = 4;
 
-		Transaction transaction = new AddHourlyEmployee(empId, "Ron", "home", 40.00);
-		transaction.execute();		
-		
-		Employee emp = PayrollDatabase.getEmployee(empId);
-		assertEquals(4, emp.getId());
-		
-		UnionAffiliation uf = new UnionAffiliation(12.5);
-		emp.setAffiliation(uf);
-		
-		int memberId = 86;
-		PayrollDatabase.addUnionMember(memberId, emp);
-		
-		transaction = new ServiceChargeTransaction(memberId, "772020", 12.95);
-		transaction.execute();
-		
-		ServiceCharge sc = uf.getServiceCharge();
-		assert(sc);
-		assertEquals(12.95, sc.getAmount(), .001);		
+	}
+
+	// TODO
+	@Test
+	public void testChangeNameTransaction() {
+
+	}
+
+	// TODO
+	@Test
+	public void testChangeAddressTransaction() {
+
+	}
+
+	// TODO
+	@Test
+	public void testChangeHourlyTransaction() {
+
+	}
+
+	// TODO
+	@Test
+	public void testChangeSalariedTransaction() {
+
+	}
+
+	// TODO
+	@Test
+	public void testChangeCommissionedTransaction() {
+
 	}
 }

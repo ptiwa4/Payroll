@@ -1,4 +1,4 @@
-package com.payroll.classification;
+package com.payroll.domain;
 
 public interface PaymentClassification {
 

@@ -1,6 +1,7 @@
-package com.payroll.classification;
+package com.payroll.factory.impl;
 
-import com.payroll.model.TimeCard;
+import com.payroll.domain.PaymentClassification;
+import com.payroll.domain.TimeCard;
 
 public class HourlyClassification implements PaymentClassification {
 
