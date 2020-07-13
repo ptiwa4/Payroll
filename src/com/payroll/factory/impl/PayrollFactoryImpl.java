@@ -5,7 +5,7 @@ import com.payroll.domain.PaymentMethod;
 import com.payroll.domain.PaymentSchedule;
 import com.payroll.factory.PayrollFactory;
 
-public class PayrollFactoryImpl implements PayrollFactory {
+public class PayrollFactoryImpl extends PayrollFactory {
 
 	@Override
 	public PaymentClassification makeHourlyClassification(double hourlyRate) {
@@ -30,6 +30,21 @@ public class PayrollFactoryImpl implements PayrollFactory {
 	@Override
 	public PaymentSchedule makeMonthlySchedule() {
 		return new MonthlySchedule();
+	}
+
+	@Override
+	public PayrollFactory setPayrollFactory() {
+		return this;
+	}
+
+	@Override
+	public PaymentSchedule makeBiWeeklySchedule() {
+		return new BiweeklySchedule();
+	}
+
+	@Override
+	public PaymentClassification makeCommissionedClassification(double salary, double commissionRate) {
+		return new CommissionedClassification(salary, commissionRate);
 	}
 
 }
