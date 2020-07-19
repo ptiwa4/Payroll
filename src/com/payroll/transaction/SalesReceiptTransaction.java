@@ -1,6 +1,6 @@
 package com.payroll.transaction;
 
-import com.payroll.database.PayrollDatabase;
+import com.payroll.database.DatabaseFactory;
 import com.payroll.domain.Employee;
 import com.payroll.domain.PaymentClassification;
 import com.payroll.domain.SalesReceipt;
@@ -22,7 +22,7 @@ public class SalesReceiptTransaction implements Transaction {
 
 	@Override
 	public void execute() {
-		Employee emp = PayrollDatabase.getEmployee(empId);
+		Employee emp = DatabaseFactory.DB_FACTORY_INSTANCE.getDatabase().getEmployee(empId);
 		PaymentClassification pc = emp.getClassification();
 		if (pc instanceof CommissionedClassification) {
 			CommissionedClassification cc = (CommissionedClassification) pc;

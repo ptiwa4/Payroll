@@ -1,6 +1,6 @@
 package com.payroll.transaction;
 
-import com.payroll.database.PayrollDatabase;
+import com.payroll.database.DatabaseFactory;
 import com.payroll.domain.Employee;
 import com.payroll.domain.PaymentClassification;
 import com.payroll.domain.TimeCard;
@@ -10,7 +10,7 @@ import com.payroll.transaction.application.Transaction;
 public class TimeCardTransaction implements Transaction {
 	String date;
 	int hours;
-	int empId;	
+	int empId;
 
 	public TimeCardTransaction(String date, int hours, int empId) {
 		super();
@@ -19,13 +19,11 @@ public class TimeCardTransaction implements Transaction {
 		this.empId = empId;
 	}
 
-
-
 	@Override
 	public void execute() {
-		Employee emp = PayrollDatabase.getEmployee(empId);
+		Employee emp = DatabaseFactory.DB_FACTORY_INSTANCE.getDatabase().getEmployee(empId);
 		PaymentClassification pc = emp.getClassification();
-		if(pc instanceof HourlyClassification) {
+		if (pc instanceof HourlyClassification) {
 			HourlyClassification hc = (HourlyClassification) pc;
 			hc.setTimeCard(new TimeCard(date, hours));
 		}

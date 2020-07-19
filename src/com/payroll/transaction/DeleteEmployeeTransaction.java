@@ -1,6 +1,6 @@
 package com.payroll.transaction;
 
-import com.payroll.database.PayrollDatabase;
+import com.payroll.database.DatabaseFactory;
 import com.payroll.transaction.application.Transaction;
 
 public class DeleteEmployeeTransaction implements Transaction {
@@ -12,8 +12,7 @@ public class DeleteEmployeeTransaction implements Transaction {
 
 	@Override
 	public void execute() {
-		PayrollDatabase.removeEmployee(empId);
-
+		DatabaseFactory.DB_FACTORY_INSTANCE.getDatabase().removeEmployee(empId);
 	}
 
 }

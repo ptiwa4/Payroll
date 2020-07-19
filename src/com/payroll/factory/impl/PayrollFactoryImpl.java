@@ -7,6 +7,10 @@ import com.payroll.factory.PayrollFactory;
 
 public class PayrollFactoryImpl extends PayrollFactory {
 
+	public PayrollFactoryImpl() {
+		INSTANCE = this;
+	}
+
 	@Override
 	public PaymentClassification makeHourlyClassification(double hourlyRate) {
 		return new HourlyClassification(hourlyRate);

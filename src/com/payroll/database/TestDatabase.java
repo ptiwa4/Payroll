@@ -5,10 +5,14 @@ import java.util.Map;
 
 import com.payroll.domain.Employee;
 
-public class PayrollDatabase implements Database {
+public class TestDatabase implements Database {
+	private Map<Integer, Employee> mapEmp;
+	private Map<Integer, Employee> mapUnion;
 
-	private Map<Integer, Employee> mapEmp = new HashMap<>();
-	private Map<Integer, Employee> mapUnion = new HashMap<>();
+	public TestDatabase() {
+		mapEmp = new HashMap<>();
+		mapUnion = new HashMap<>();
+	}
 
 	public void addEmployee(int id, Employee e) {
 		mapEmp.put(id, e);

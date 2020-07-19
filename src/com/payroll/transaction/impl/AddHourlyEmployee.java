@@ -3,6 +3,7 @@ package com.payroll.transaction.impl;
 import com.payroll.domain.PaymentClassification;
 import com.payroll.domain.PaymentMethod;
 import com.payroll.domain.PaymentSchedule;
+import com.payroll.factory.PayrollFactory;
 import com.payroll.transaction.AddEmployeeTransaction;
 
 public class AddHourlyEmployee extends AddEmployeeTransaction {
@@ -15,17 +16,17 @@ public class AddHourlyEmployee extends AddEmployeeTransaction {
 
 	@Override
 	protected PaymentClassification getClassification() {		
-		return this.payrollFactory.makeHourlyClassification(this.hourlyRate);
+		return PayrollFactory.INSTANCE.makeHourlyClassification(this.hourlyRate);
 	}
 
 	@Override
 	protected PaymentSchedule getSchedule() {
-		return this.payrollFactory.makeWeeklySchedule();
+		return PayrollFactory.INSTANCE.makeWeeklySchedule();
 	}
 
 	@Override
 	protected PaymentMethod getMethod() {
-		return this.payrollFactory.makeHoldMethod();
+		return PayrollFactory.INSTANCE.makeHoldMethod();
 	}
 
 }

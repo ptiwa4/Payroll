@@ -7,6 +7,7 @@ public class Employee {
 	private PaymentClassification classification;
 	private PaymentSchedule schedule;
 	private PaymentMethod method;
+	private Affiliation affiliation;
 
 	public Employee(int id, String name, String address) {
 		super();
@@ -50,8 +51,13 @@ public class Employee {
 	public PaymentMethod getMethod() {
 		return method;
 	}
-	
-	
-	
-	
+
+	public Affiliation getAffiliation() {
+		return affiliation;
+	}
+
+	public void setAffiliation(Affiliation affiliation) {
+		this.affiliation = affiliation;
+	}
+
 }

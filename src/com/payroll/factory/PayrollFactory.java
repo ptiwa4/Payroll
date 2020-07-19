@@ -6,6 +6,7 @@ import com.payroll.domain.PaymentSchedule;
 
 public abstract class PayrollFactory {
 
+	public static PayrollFactory INSTANCE;
 	public abstract PaymentClassification makeHourlyClassification(double hourlyRate);
 	public abstract PaymentSchedule makeWeeklySchedule();
 	public abstract PaymentMethod makeHoldMethod();
