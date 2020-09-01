@@ -1,35 +1,17 @@
 package com.payroll.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Test;
-
 import com.payroll.application.Application;
 import com.payroll.application.PayrollApplication;
 import com.payroll.application.TextParserTransactionSource;
 import com.payroll.database.Database;
 import com.payroll.database.DatabaseFactory;
 import com.payroll.database.TestDatabase;
-import com.payroll.domain.Affiliation;
-import com.payroll.domain.Employee;
-import com.payroll.domain.PaymentClassification;
-import com.payroll.domain.PaymentMethod;
-import com.payroll.domain.PaymentSchedule;
-import com.payroll.domain.SalesReceipt;
-import com.payroll.domain.ServiceCharge;
-import com.payroll.domain.TimeCard;
-import com.payroll.factory.impl.BiweeklySchedule;
-import com.payroll.factory.impl.CommissionedClassification;
-import com.payroll.factory.impl.HoldMethod;
-import com.payroll.factory.impl.HourlyClassification;
-import com.payroll.factory.impl.MonthlySchedule;
-import com.payroll.factory.impl.PayrollFactoryImpl;
-import com.payroll.factory.impl.SalariedClassification;
-import com.payroll.factory.impl.UnionAffiliation;
-import com.payroll.factory.impl.WeeklySchedule;
+import com.payroll.domain.*;
+import com.payroll.factory.impl.*;
 import com.payroll.transaction.impl.TransactionFactoryImpl;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class PayrollTest extends DatabaseFactory {
 	Application application;
@@ -192,7 +174,7 @@ public class PayrollTest extends DatabaseFactory {
 		Employee emp =  application.getDatabaseFactory().getDatabase().getEmployee(empId);
 		assertEquals(6, emp.getId());
 
-		Affiliation uf = new UnionAffiliation(12.5);
+		UnionAffiliation uf = new UnionAffiliation(12.5);
 		emp.setAffiliation(uf);
 
 		int memberId = 86;
@@ -200,7 +182,7 @@ public class PayrollTest extends DatabaseFactory {
 
 		application.getTransactionFactory().makeServiceChargeTransaction(memberId, "772020", 12.95).execute();
 
-		ServiceCharge sc = ((UnionAffiliation) uf).getServiceCharge("772020");
+		ServiceCharge sc = uf.getServiceCharge("772020");
 		assertNotNull(sc);
 		assertEquals(12.95, sc.getAmount(), .001);
 	}

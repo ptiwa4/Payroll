@@ -1,11 +1,10 @@
 package com.payroll.application;
 
-import static org.junit.Assert.assertEquals;
-
 import com.payroll.database.DatabaseFactoryImpl;
 import com.payroll.domain.Employee;
 import com.payroll.factory.impl.PayrollFactoryImpl;
 import com.payroll.transaction.impl.TransactionFactoryImpl;
+import org.junit.Assert;
 
 public class PayrollApplication extends Application {
 
@@ -22,7 +21,7 @@ public class PayrollApplication extends Application {
 		application.getTransactionSource().getTransaction().execute();
 
 		Employee emp = application.getDatabaseFactory().getDatabase().getEmployee(1);
-		assertEquals("Prashant", emp.getName());
+		Assert.assertEquals("Prashant", emp.getName());
 	}
 
 }
